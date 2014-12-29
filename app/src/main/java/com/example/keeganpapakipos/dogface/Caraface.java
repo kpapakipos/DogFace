@@ -1,6 +1,9 @@
 package com.example.keeganpapakipos.dogface;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -15,7 +18,6 @@ public class Caraface extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        int j;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_caraface);
         onWindowFocusChanged(true);
@@ -49,6 +51,16 @@ public class Caraface extends Activity {
                         (R.drawable.worrydog);
             }
         }, 10000);
+    }
+
+    public class StartMyServiceAtBootReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
+                Intent serviceIntent = new Intent("com.myapp.MySystemService");
+                context.startService(serviceIntent);
+            }
+        }
     }
 
     @Override
